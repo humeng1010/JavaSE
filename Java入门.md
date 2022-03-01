@@ -8,21 +8,19 @@
 
 2. 选择对应的版本(推荐JDK8)，由于我是macOS Arm 64(M1)的系统，所以安装了适配于M1芯片的JDK-17
 
-   ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203012043222.png)
+   ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020051699.png)
 
 3. 打开终端配置Java的环境变量
 
    1. 输入：java -version，查看是否安装成功JDK（显示安装的JDK版本，就代表安装成功）
 
-<<<<<<< HEAD
-      ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203012057058.png)
-=======
-   ![截屏2022-02-22 下午5.06.26](./Java入门.assets/截屏2022-02-22 下午5.06.26.png)
->>>>>>> 7b935153c0608a0883daa1c23070d77c87baf953
+<img src="https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020052605.png" style="zoom:50%;" />
+
+
 
    2. 输入：/usr/libexec/java_home -V，查看JDK默认的安装地址
 
-      ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203012051358.png)
+      <img src="https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020053739.png" style="zoom:50%;" />
 
       
 
@@ -82,19 +80,13 @@
 
 1. 打开官网：https://www.jetbrains.com/idea/
 
-   ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203012100364.png)
-
-   ![截屏2022-02-22 下午5.22.33](/Users/humeng/blog-meng/blog-imgs/截屏2022-02-22 下午5.22.33.png)
-
 2. 点击IntelliJ IDEA
-
-   ![截屏2022-02-22 下午5.24.02](/Users/humeng/blog-meng/blog-imgs/截屏2022-02-22 下午5.24.02.png)
 
 3. 选择Download，选择对应的版本下载（推荐下载专业版），接下来的事情就不必多说了，懂得都懂，网上有很多的视频。
 
 4. 另外如果是M1芯片的用户可以选择这个下载（Apple Silicon）
 
-   <img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-22 下午5.27.22.png" alt="截屏2022-02-22 下午5.27.22" style="zoom:50%;" />
+   <img src="https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020054021.png" style="zoom:50%;" />
 
 5. 下载安装好就来创建我们的第一个项目：HelloWorld！
 
@@ -104,15 +96,9 @@
 
 1. 打开我们提前准备好的存放代码的文件夹（也可以直接创建一个项目），然后在打开的文件夹中新建一个模版
 
-   ![截屏2022-02-22 下午5.31.58](/Users/humeng/blog-meng/blog-imgs/截屏2022-02-22 下午5.31.58.png)
-
-   2. 选择Java模版，这里编译器会自动检测到我们安装的Java环境，我们也可以在这里下载JDK，就不用去官网下载并且配置环境（经典白学)，这里我选择使用zulu-1.8的JDK，然后下一步，给项目起一个名字，就叫helloworld吧，然后完成
-
-   <img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-22 下午5.32.21.png" alt="截屏2022-02-22 下午5.32.21" style="zoom:50%;" />
+   2. 选择Java模版，这里编译器会自动检测到我们安装的Java环境，我们也可以在这里下载JDK，就不用去官网下载，这里我选择使用zulu-1.8的JDK，然后下一步，给项目起一个名字，就叫helloworld吧，然后完成
 
    3. 展开刚刚新建的模版，然后新建一个Java类。
-
-      ![截屏2022-02-22 下午5.33.03](/Users/humeng/blog-meng/blog-imgs/截屏2022-02-22 下午5.33.03.png)
 
    4. 类名就叫HelloWorld（类名首字母大写，并且遵循驼峰命名法）
 
@@ -126,11 +112,11 @@
       }
       
       ```
-
+   
    6. 看到控制台成功输出HelloWorld!
-
+   
    7. 恭喜你完成了Java入门，接下来让我们进入基础语法的学习吧
-
+   
    
 
    

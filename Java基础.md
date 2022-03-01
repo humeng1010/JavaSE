@@ -73,8 +73,10 @@ Java中的所有组成部分都需要名字，类名，变量名，方法名都�
 
 1. Java中的关键字不能作为标识符（就是关键字不能作为名字）
 
-   <img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-22 下午6.06.17.png" alt="截屏2022-02-22 下午6.06.17" style="zoom:50%;" />
+   
 
+   <img src="https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020028136.png" style="zoom:50%;" />
+   
    
 
 # 数据类型

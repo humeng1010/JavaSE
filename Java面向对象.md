@@ -165,20 +165,18 @@ public class User {
 
 静态成员变量（有static修饰，属于类，内存中加载一次）
 
-<img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-25 下午7.36.08.png" alt="截屏2022-02-25 下午7.36.08" style="zoom:50%;" />
+![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020029717.png)
 
 实例成员变量（无static修饰，存在于每个对象中）
 
-<img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-25 下午7.38.28.png" alt="截屏2022-02-25 下午7.38.28" style="zoom:50%;" />
+![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020029446.png)
 
 #### static修饰成员变量的内存原理
 
-<img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-25 下午7.43.03.png" alt="截屏2022-02-25 下午7.43.03" style="zoom:50%;" />
+<img src="https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020029897.png" style="zoom:50%;" />
 
 1. 首先user.class文件加载到方法区，加载类的同时会加载静态成员变量，因为静态成员变量属于类（加载一次，被共享访问，而且在堆内存中）。
 2. 在栈内存中加载main方法
-
-<img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-25 下午7.49.09.png" alt="截屏2022-02-25 下午7.49.09" style="zoom:50%;" />
 
 
 
@@ -188,9 +186,11 @@ public class User {
 
 实例成员方法：无static关键字修饰，属于对象，只能用于对象触发访问。
 
-<img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-25 下午7.53.02.png" alt="截屏2022-02-25 下午7.53.02" style="zoom:50%;" />
+![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020037487.png)
 
-<img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-25 下午7.57.53.png" alt="截屏2022-02-25 下午7.57.53" style="zoom:50%;" />
+
+
+
 
 
 
@@ -579,7 +579,7 @@ public enum Season {
 
 ```
 
-<img src="/Users/humeng/blog-meng/blog-imgs/截屏2022-02-26 下午4.43.39.png" alt="截屏2022-02-26 下午4.43.39" style="zoom:50%;" />
+<img src="https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020050052.png" style="zoom:50%;" />
 
 #### 枚举的特征：
 
