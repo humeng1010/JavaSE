@@ -8,21 +8,23 @@
 
 2. 选择对应的版本(推荐JDK8)，由于我是macOS Arm 64(M1)的系统，所以安装了适配于M1芯片的JDK-17
 
-   ![截屏2022-02-22 下午4.59.38](Java入门.assets/截屏2022-02-22 下午4.59.38.png)
+   ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203012043222.png)
 
 3. 打开终端配置Java的环境变量
 
    1. 输入：java -version，查看是否安装成功JDK（显示安装的JDK版本，就代表安装成功）
 
-   ![截屏2022-02-22 下午5.06.26](Java入门.assets/截屏2022-02-22 下午5.06.26.png)
+      ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203012057058.png)
 
    2. 输入：/usr/libexec/java_home -V，查看JDK默认的安装地址
 
-      ![截屏2022-02-22 下午5.11.01](Java入门.assets/截屏2022-02-22 下午5.11.01.png)
+      ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203012051358.png)
 
-   3. 复制下来最后一行的url地址备用
+      
 
-   4. 找到路径以后就是如何配置环境变量的问题，配置环境变量比较简单：
+      复制下来最后一行的url地址备用
+
+   3. 找到路径以后就是如何配置环境变量的问题，配置环境变量比较简单：
 
       需要修改两个文件
 
@@ -75,6 +77,8 @@
 # 2.安装IntelliJ IDEA
 
 1. 打开官网：https://www.jetbrains.com/idea/
+
+   ![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203012100364.png)
 
    ![截屏2022-02-22 下午5.22.33](/Users/humeng/blog-meng/blog-imgs/截屏2022-02-22 下午5.22.33.png)
 
