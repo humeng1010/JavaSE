@@ -944,171 +944,225 @@ public class WriterDemo {
 
 ### 缓冲流概述
 
+- 缓冲流也称为高效流、或者高级流。之前学习的字节流可以称为原始流
+- 作用：**缓冲流自带缓冲区、可以提高原始字节流、字符流读写数据的性能**
 
-
-
-
-
+![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203061905964.png)
 
 
 
 ### 字节缓冲流
 
+- 字节缓冲输入流：BufferedInputStream,提高字节输入流读取数据的性能，读写功能上并无变化
+- 字节缓冲输出流：BufferedOutputStream，提高字节输出流写数据的性能，读写功能上并无变化
+
+| 构造器                                       | 说明                                                         |
+| -------------------------------------------- | ------------------------------------------------------------ |
+| public BufferedInputStream (InputStream is)  | 可以把低级的字节输入流包装成一个高级的缓冲字节输入流管道，从而提高字节输入流读数据的性能 |
+| public BufferedOutputStream(OutputStrean os) | 可以把低级的字节输出流包装成一个高级的缓冲字节输出流管道，从而提高字节输出流写数据的性能 |
+
+```java
+package com.io2;
+
+import java.io.*;
+
+public class Demo1 {
+    public static void main(String[] args) {
+        try (
+                //创建字节输入流管道
+                InputStream is = new FileInputStream("src/data2.txt");
+                //把原始的字节输入流管道包装成高级的缓冲字节输入流
+                InputStream bis = new BufferedInputStream(is);
+                //创建字节输出流管道
+                OutputStream os = new FileOutputStream("src/data3.txt");
+                OutputStream bos = new BufferedOutputStream(os)
+
+        ) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = bis.read(buffer)) != -1) {
+                bos.write(buffer, 0, len);
+            }
+            System.out.println("完成了复制");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
+    }
+}
 
-
-
-
-
-
-### 字节缓冲流的性能分析
-
-
-
-
-
-
+```
 
 
 
 ### 字符缓冲流
 
+输入流
+
+```java
+package com.io2;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.Reader;
+
+/**
+ * 经典代码：按照行读
+ */
+public class BufferedReaderDemo1 {
+    public static void main(String[] args) {
+        try (
+                Reader fr = new FileReader("src/data2.txt");
+                //把低级的字符输入流包装成高级的字符缓冲输入流
+                BufferedReader br = new BufferedReader(fr);
+
+        ) {
+//            char[] buffer = new char[1024];
+//            int len;
+//            while ((len = fr.read(buffer)) != -1) {
+//                String s = new String(buffer, 0, len);
+//                System.out.println(s);
+//            }
+//            System.out.println(br.readLine());
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
 
 
 
+输出流
 
+```java
+package com.io2;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.Writer;
 
+public class Demo2 {
+    public static void main(String[] args) throws Exception {
+        Writer fw = new FileWriter("src/data1.txt", true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(99);
+        bw.newLine();//换行
+        bw.write('\n');
+        bw.write("小胡");
+        char[] buffer = "我们的".toCharArray();
+        bw.write(buffer);
+        bw.newLine();//换行
 
+        bw.write("abc我是中国人", 0, 3);//abc
 
+        bw.close();
+    }
+}
 
-
-
-
-## 转换流
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 序列化对象
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
 
 ## 打印流
 
+- 作用：打印流可以实现方便、高效的打印数据到文件中去。打印流一般是指：PrintStream,和PrintWriter两个类
+- 可以实现打印什么就是什么数据，例如打印整数97写出去就是97，打印boolean的true，写出去就是true
 
 
 
+### PrintStream、PrintWriter
+
+| 构造器                              | 说明                         |
+| ----------------------------------- | ---------------------------- |
+| public PrintStream(OutputStream os) | 打印流直接通向字节输出流管道 |
+| public PrintStream(File f)          | 打印流直接通向文件对象       |
+| public PrintStream(String filepath) | 打印流直接通向文件路径       |
+
+| 方法                      | 说明                   |
+| ------------------------- | ---------------------- |
+| public void print(Xxx xx) | 打印任意类型的数据出去 |
+
+```java
+package com.printStream;
+
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
+public class PrintDemo1 {
+    public static void main(String[] args) throws Exception {
+        //1、创建一个打印流对象
+        PrintStream ps = new PrintStream(new FileOutputStream("src/data4.txt", true));
+//        PrintWriter ps = new PrintWriter("src/data4.txt");//打印功能与PrintStream的使用没有区别
+
+        //2、打印
+        ps.println(97);
+        ps.println('a');
+        ps.println(true);
+        ps.println("xiaohu");
+        ps.println("我是打印流输出的，我是啥就打印啥");
+
+        ps.close();
+    }
+}
+
+```
 
 
 
+# IO框架
+
+## commons-io
+
+- commons-io是Apache开源基金组织提供的一组有关IO操作的类库，可以提高IO功能开发效率
+- 官网：https://commons.apache.org/proper/commons-io/
+- commons-io工具包提供了很多io操作的类。有两个主要的类FileUtils、IOUtils
 
 
 
+### FileUtils主要方法如下：
+
+| 方法                                                    | 说明                         |
+| ------------------------------------------------------- | ---------------------------- |
+| String readFileToString(File file,String encoding)      | 读取文件中的数据，返回字符串 |
+| void copyFile(File srcFile,File destFile)               | 复制文件                     |
+| void copyDirectoryToDirectory(File srcDir,File destDir) | 复制文件夹                   |
 
 
 
+```java
+package com.io3;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+public class IODemo1 {
+    public static void main(String[] args) throws Exception {
+        //完成文件拷贝
+        IOUtils.copy(new FileInputStream("/Users/humeng/Pictures/IMG_8484(20220301-105418).JPG"),
+                new FileOutputStream("/Users/humeng/Pictures/new2.JPG"));
+        //完成文件夹复制到某个文件夹下
+        FileUtils.copyDirectoryToDirectory(new File("/Users/humeng/Gitee"), new File("/Users/humeng/Gitee2"));
+        //删除文件夹
+        FileUtils.deleteDirectory(new File("/Users/humeng/Gitee2"));
 
 
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-## properties
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## IO框架
-
-
-
-
-
-
+```
 
 
 
