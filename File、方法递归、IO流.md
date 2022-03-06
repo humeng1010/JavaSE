@@ -221,3 +221,906 @@ public class FileDemo4 {
 
 - 直接递归：方法自己调用自己
 - 简介递归：方法调用其他方法，其他方法又回调方法自己
+
+## 方法递归存在的问题
+
+- 递归如果没有控制好终止，会出现递归死循环，导致栈内存溢出现象
+
+- ```java
+  package com.recursion;
+  
+  public class RecursionDemo1 {
+      public static void main(String[] args) {
+          test();
+      }
+      public static void test(){
+          System.out.println("=========test被执行========");
+          test();//方法递归 直接递归形式
+      }
+  }
+  
+  ```
+
+- ```java
+  package com.recursion;
+  
+  public class RecursionDemo1 {
+      public static void main(String[] args) {
+          test2();
+      }
+      public static void test2(){
+          System.out.println("=========test2被执行========");
+          test3();//方法递归 间接递归形式
+      }
+      public static void test3(){
+          System.out.println("=========test3被执行========");
+          test2();//方法递归 间接递归形式
+      }
+  }
+  
+  ```
+
+## 递归的算法流程、核心要素
+
+### 案例：计算1 - n的阶乘
+
+```java
+package com.recursion;
+
+/**
+ * 递归算法
+ */
+public class Demo2 {
+    public static void main(String[] args) {
+        System.out.println(f(5));
+    }
+    public static int f(int n){
+        if (n == 1){
+            return 1;
+        }else {
+            return f(n-1) * n;
+        }
+    }
+}
+
+```
+
+### 递归算法三要素大体可以总结为：
+
+- 递归的公式：f(n) = f(n-1) * n;
+- 递归的终点：f(1);
+- 递归的方向必须走向终结点
+
+### 案例：计算1-n的和
+
+f(n) = 1+2+3+4+5+...+(n-1)+n;
+
+那么这个公式就等价于：f(n)=f(n-1)+n;
+
+终结点：f(1) = 1;
+
+```java
+package com.recursion;
+
+public class Demo3 {
+    public static void main(String[] args) {
+        System.out.println(f(100));
+    }
+    public static int f(int n){
+        if (n == 1){
+            return 1;
+        }else {
+            return f(n-1) + n;
+        }
+    }
+}
+
+```
+
+### 案例：猴子吃桃问题（经典问题）
+
+```java
+package com.recursion;
+
+/**
+ * 公式：
+ * 第x天的桃子吃掉二分之一再吃掉一个 = 下一天的桃子
+ * f(x) - f(x)/2 - 1 = f(x+1)
+ * 2f(x) - f(x) -2 = 2f(x+1)
+ * f(x) = 2f(x+1) + 2
+ *
+ * f(1) = ?
+ * 终结点：f(10) = 1;
+ *
+ */
+public class Demo4 {
+    public static void main(String[] args) {
+        System.out.println(f(1));
+
+    }
+    public static int f(int x){
+        if (x == 10){
+            return 1;
+        }else {
+            return 2*f(x+1)+2;
+        }
+    }
+}
+
+```
+
+## 非规律化递归案例-文件搜索
+
+### 案例：文件搜索
+
+1. 先定位出的应该是一级文件对象
+1. 遍历全部一级文件对象，判断是否是文件
+1. 如果是文件，判断是否是自己想要的
+1. 如果是文件夹，需要继续递归进去重复上述过程
+
+```java
+package com.recursion;
+
+import java.io.File;
+
+/**
+ * 去humeng中搜索"Java入门.md"文件
+ */
+public class Demo5 {
+    public static void main(String[] args) {
+        File file = new File("/Users/humeng");
+        searchFile(file,"Java入门.md");
+    }
+
+    /**
+     * 搜索某个目录下的全部文件，找到我们想要的文件
+     * @param dir 被搜索的原目录
+     * @param fileName 被搜索的文件名称
+     */
+    public static void searchFile(File dir,String fileName){
+        //3、判断dir是否是目录
+        if (dir != null && dir.isDirectory()){
+            //4、提取当前目录下的一级文件对象
+            File[] files = dir.listFiles();
+            //5、判断是否存在一级文件对象，存在才可以遍历
+            if (files != null && files.length > 0){
+                //6、遍历一级文件夹
+                for (File file : files) {
+                    //7、如果是文件
+                    if (file.isFile()){
+                        //8、判断文件名是否一样
+                        if (file.getName().contains(fileName)){
+                            //9、找到文件
+                            System.out.println("查找到了"+file.getAbsolutePath());
+
+                        }
+                    }else {
+                        //是文件夹，需要继续递归寻找
+                        searchFile(file,fileName);
+
+                    }
+                }
+            }
+        }
+
+    }
+
+}
+
+```
+
+
+
+# 字符集
+
+## 常见字符集
+
+### 字符集基础知识
+
+- 计算机底层不可以直接存储字符的，计算机中底层只能存储二进制（0、1）
+- 二进制是可以转换成十进制的
+- 结论：计算机底层可以表示十进制编号，计算机可以给人类字符进行编号存储，这套编号规则就是字符集
+
+### ASCII字符集
+
+- ASCII：包括了数字、英文、符号
+- ASCII使用1个字节存储一个字符，一个字节是8位（2的8次方），总共可以表示256个字符信息，对于英文，数字来说是够用的。
+
+### GBK：
+
+- window系统默认的码表。兼容ASCII码表，也包含了几万个汉字，并支持繁体汉字以及部分日韩文字。
+- 注意：GBK是中国的码表，一个中文以两个字节（16位，2的16次方）的形式存储。但不包含世界上所有国家的文字。
+
+### Unicode码表
+
+- Unicode是计算机科学领域里的一项业界字符编码标准
+- 容纳世界上大多数国家的所有常见文字和符号
+- Unicode会先通过UTF-8，UTF-16，以及UTF-32的编码成二进制后再存储到计算机，其中最常见的是UTF-8
+
+注意：
+
+- Unicode是万国码，以UTF-8编码后一个中文一般以三个字节的形式存储
+- UTF-8也要兼容ASCII编码表
+- 技术人员都应该使用UTF-8的字符集编码
+- 编码前和编码后的字符集需要一致，否则会出现中文乱码
+
+### 总结
+
+- 英文和数字等在任何国家的字符集中都占1个字节
+- GBK字符中一个中文字符占2个字节
+- UTF-8编码中一个中文占3个字节
+- 编码前和编码后的字符集必须一致，否则乱码
+- 英文和数组在任何国家的编码中都不会乱码
+
+## 字符集的编码、解码
+
+```java
+package com.recursion;
+
+
+import java.util.Arrays;
+
+public class Demo6 {
+    public static void main(String[] args) throws Exception {
+        String name = "小胡";
+        byte[] bytes = name.getBytes();//以当前代码的默认字符集进行编码
+        System.out.println(Arrays.toString(bytes));
+
+        //解码
+        String s = new String(bytes);
+        System.out.println(s);
+    }
+}
+
+```
+
+
+
+# IO流（一）
+
+## IO流概述
+
+- I表示input，是数据从硬盘文件读入到内存的过程，称之为输入，负责读
+- O表示output，是内存程序的数据从内存写出到硬盘文件的过程，称之输出，负责写
+
+## IO流的分类
+
+- 按照流的方向分：IO流分为输入流和输出流
+- 按照流中的数据最小单位分：IO流分为字节流（音视频）和字符流（字符文件）
+
+## 总结流的四大类
+
+- 字节输入流
+- 字节输出流
+- 字符输入流
+- 字符输出流
+
+![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203061315313.png)
+
+## 字节流的使用
+
+### 文件字节输入流
+
+![](https://gitee.com/xiaohugitee/tuchuang/raw/master/202203061318477.png)
+
+#### 每次读取一个字节
+
+作用：以内存为基准，把磁盘文件中的数据以字节的形式读取到内存中去
+
+| 构造器                                  | 说明                               |
+| --------------------------------------- | ---------------------------------- |
+| public FileInputStream(File file)       | 创建字节输入流管道与源文件对象接通 |
+| public FileInputStream(String pathname) | 创建字节输入流管道与源文件路径接通 |
+
+| 方法名称                       | 说明                                                   |
+| ------------------------------ | ------------------------------------------------------ |
+| public int read()              | 每次读取一个字节返回，如果字节已经没有可读的返回-1     |
+| public int read(byte[] buffer) | 每次读取一个字节数组返回，如果字节已经没有可读的返回-1 |
+
+```java
+package com.io;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+public class Demo1 {
+    public static void main(String[] args) throws Exception {
+        //1、创建一个文件字节输入流 管道 与源文件接通
+        InputStream fileInputStream = new FileInputStream("src/data.txt");
+        //2、读取一个字节返回（每次读一滴水）
+//        int read = fileInputStream.read();//读取一个字节，int是4个字节，所以读取中文也可以（中文UTF-8占3个字节）
+//        System.out.println((char) read);//a
+//
+//        int read1 = fileInputStream.read();
+//        System.out.println((char) read1);//b
+//
+//        int read2 = fileInputStream.read();//c
+//        System.out.println((char) read2);
+//
+//        int read3 = fileInputStream.read();//读取完毕返回：-1
+//        System.out.println((char) read3);
+
+        //3、使用循环读
+        //定义一个变量，每次读取一个字节,但是中文是三个字节，所以永远无法避免中文乱码问题
+//        int b;
+//        while (( b = fileInputStream.read() ) != -1){
+//            System.out.print((char) b);
+//        }
+
+    }
+}
+
+```
+
+#### 每次读取一个字节数组
+
+作用：以内存为基准，把磁盘文件中的数据以字节的形式读取到内存中去
+
+```java
+package com.io;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Arrays;
+
+/**
+ * 使用文件字节输入流每次读取一个字节数组数据
+ */
+public class Demo2 {
+    public static void main(String[] args) throws Exception {
+        //1、创建一个文件字节输入流管道与源文件接通
+        InputStream fileInputStream = new FileInputStream("src/data.txt");
+        //2、定义一个字节数组(桶），读取数据，注意：字节数据都是装在buffer桶中的！！！！！！！！！！
+//        byte[] buffer = new byte[3];//3B(三个字节的桶）buffer:[0,0,0]
+//
+//        int read = fileInputStream.read(buffer);//   buffer:[97, 98, 99]
+//        System.out.println("读了几个字节"+read);//     read:3
+//        String s = new String(buffer);//             对buffer桶进行解码
+//        System.out.println(s);//                     buffer:[97, 98, 99]  ——>[a,b,c]
+//
+//        int read1 = fileInputStream.read(buffer);//   buffer:[97, 98, 99]
+//        System.out.println("读了几个字节"+read1);//     read:3
+//        String s1 = new String(buffer);//             对buffer桶进行解码
+//        System.out.println(s1);//                     buffer:[97, 98, 99]  ——>[a,b,c]
+//
+////        int read2 = fileInputStream.read(buffer);//   buffer:[99, 100, 99]
+////        System.out.println("读了几个字节"+ read2);//     read:3
+////        String s2 = new String(buffer);//             对buffer桶进行解码
+////        System.out.println(s2);//                     buffer:[99, 100, 99]  ——>[c,d,c]:为什么最后只有两滴水，却还是三滴水？
+////                                                                                    // 因为是前面的桶中剩余的水是[a,b,c],
+////                                                                                    //而这桶水只有两滴水[c,d],但是上一桶水最后一个位置还有一滴水c,所以[c,d,c]
+//
+//        int read2 = fileInputStream.read(buffer);//   buffer:[99, 100, 99]
+//        System.out.println("读了几个字节"+ read2);//     read:3
+//        String s2 = new String(buffer,0,read2);//             对buffer桶进行解码,从0(桶的底部开始),到读了几个字节read2
+//        System.out.println(s2);//                     buffer:[99, 100]  ——>[c,d]
+//
+//
+//        int read3 = fileInputStream.read(buffer);
+//        System.out.println("读取完毕"+read3);
+
+        //3、使用循环
+        /**
+         * 注意：依然无法避免乱码
+         * 文本内容：abc abc cd
+         * 定义一个只能装3滴水的桶
+         * 定义len记录每次读取的字节数
+         * 使用while循环：每次读取的字节数不等于-1（也就是没有读取完）就进入while循环体：
+         * 使用String的一个解码构造器：new String(buffer,0,len)；
+         * 这个buffer是桶中的字节数据，0是从第0滴水开始，len是到第几滴水结束（有几滴水就读几滴水，不要读多，否则会出现上一桶水的残留）
+         */
+        byte[] buffer = new byte[3];
+        int len;//记录每次读取的字节数
+        while ( ( len = fileInputStream.read(buffer) ) != -1){
+            //读多少倒多少！！！这个String的API非常重要！！
+            System.out.print(new String(buffer,0,len));
+        }
+    }
+}
+
+```
+
+
+
+#### 一次读取完全部字节（避免乱码）
+
+- 定义一个与文件大小一样的字节数组，一次性读取完文件的全部字节
+- 如果文件过大会引起内存溢出（例如一个16GB的内存去读一个100GB的文件，就会造成内存溢出）
+
+```java
+package com.io;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+/**
+ * 使用文件字节输入流一次读取字节数组数据
+ */
+public class Demo3 {
+    public static void main(String[] args) throws Exception {
+        //1、创建一个文件字节输入流管道与源文件接通
+        File file = new File("src/data1.txt");
+        InputStream fileInputStream = new FileInputStream(file);
+
+        //2、定义一个字节数组，与文件大小一样大
+        //自己实现
+//        long length = file.length();//获取文件大小
+//        byte[] buffer = new byte[(int) length];//定义一个和文件大小相同的桶buffer
+//        int len = fileInputStream.read(buffer);//读取桶这么大小的文件返回字节的长度
+//        System.out.println("读取了多少个字节"+len);//字节长度
+//        System.out.println("文件大小"+length);//文件大小 = 字节长度
+//        String s = new String(buffer);//字节解码
+//        System.out.println(s);
+
+        //JDK9 提供的API
+        byte[] bytes = fileInputStream.readAllBytes();
+        System.out.println(new String(bytes));
+
+    }
+}
+
+```
+
+
+
+### 文件字节输出流
+
+```java
+package com.io;
+
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
+public class Demo4 {
+    public static void main(String[] args) throws Exception {
+        //1、创建一个文件字节输出流管道与目标文件接通
+//        OutputStream outputStream = new FileOutputStream("src/data2.txt");//先清空之前的数据，写入新数据
+        OutputStream outputStream = new FileOutputStream("src/data2.txt",true);//true:追加数据
+
+
+        //2、写入数据
+        outputStream.write('a');
+        outputStream.write(98);
+        outputStream.write("\r\n".getBytes(StandardCharsets.UTF_8));
+//        outputStream.write('胡');
+        //写数据一定要刷新数据！！
+
+        //写一个字节数组出去
+        byte[] buffer = {98,'a',99};
+        outputStream.write(buffer);
+        outputStream.write("\r\n".getBytes(StandardCharsets.UTF_8));
+
+        //写中文
+        byte[] buffer2 = "我是中国人".getBytes();
+        outputStream.write(buffer2);
+        outputStream.write("\r\n".getBytes(StandardCharsets.UTF_8));
+
+        //写一个字节数组的一部分
+        byte[] buffer3 = {98,'a',99,100};
+        outputStream.write(buffer3,0,3);
+        outputStream.write("\r\n".getBytes(StandardCharsets.UTF_8));
+
+//        outputStream.flush();
+        outputStream.close();//释放资源，包含了刷新，关闭后流就不能使用了
+    }
+}
+
+```
+
+
+
+### 文件拷贝
+
+```java
+package com.io;
+
+import java.io.*;
+
+/**
+ * 学会使用字节流完成文件的复制（支持一切文件）
+ */
+public class CopyDemo5 {
+    public static void main(String[] args) {
+        try {
+            //1、创建字节输入流管道与原图片接通
+            InputStream fileInputStream = new FileInputStream("/Users/humeng/Pictures/2022.03.01.10.14.jpg");
+            //2、创建字节输出流与目标文件接通
+            OutputStream fileOutputStream = new FileOutputStream("/Users/humeng/Pictures/new.jpg");
+            //3、定义一个字节数组，来转移数据
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fileInputStream.read(buffer)) != -1){
+                fileOutputStream.write(buffer,0,len);//读多少，倒多少
+            }
+            System.out.println("copy success");
+            //关闭流
+            fileOutputStream.close();
+            fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+## 资源释放的方式
+
+### try-catch-finally
+
+- finally :在异常处理的时候提供finally块来执行所有清除操作，比如说IO流中的资源释放
+- 特点：被finally控制的语句最终一定会被执行，除非JVM退出
+- 异常处理标准格式：try...catch...finally
+
+```java
+package com.io;
+
+import java.io.*;
+
+/**
+ * 学会使用字节流完成文件的复制（支持一切文件）
+ */
+public class Demo6 {
+    public static void main(String[] args) {
+        InputStream fileInputStream = null;
+        OutputStream fileOutputStream = null;
+        try {
+
+            //1、创建字节输入流管道与原图片接通
+            fileInputStream = new FileInputStream("/Users/humeng/Pictures/2022.03.01.10.14.jpg");
+            //2、创建字节输出流与目标文件接通
+            fileOutputStream = new FileOutputStream("/Users/humeng/Pictures/new.jpg");
+            //3、定义一个字节数组，来转移数据
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fileInputStream.read(buffer)) != -1){
+                fileOutputStream.write(buffer,0,len);//读多少，倒多少
+            }
+            System.out.println("copy success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            //关闭流
+            try {
+                if (fileOutputStream != null)fileOutputStream.close();//防止还没有创建流对象的时候就出现异常出现空指针异常
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (fileInputStream != null)fileInputStream.close();//防止还没有创建流对象的时候就出现异常出现空指针异常
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+}
+
+```
+
+
+
+### try-with-resource
+
+资源就是实现了AutoCloseable接口的对象
+
+```java
+package com.io;
+
+import java.io.*;
+
+/**
+ * 学会使用字节流完成文件的复制（支持一切文件）
+ */
+public class Demo7 {
+    public static void main(String[] args) {
+
+        try(
+                //这里只能放置资源对象，用完会自动关闭，自动调用资源对象的close方法关闭资源
+                //1、创建字节输入流管道与原图片接通
+                InputStream fileInputStream = new FileInputStream("/Users/humeng/Pictures/2022.03.01.10.14.jpg");
+                //2、创建字节输出流与目标文件接通
+                OutputStream fileOutputStream = new FileOutputStream("/Users/humeng/Pictures/new.jpg");
+                ) {
+            //3、定义一个字节数组，来转移数据
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fileInputStream.read(buffer)) != -1){
+                fileOutputStream.write(buffer,0,len);//读多少，倒多少
+            }
+            System.out.println("copy success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+
+
+# 字符流
+
+## 一次读取一个字符
+
+- 因为字节流读取中文会出现乱码或者内存溢出
+- 读取中文输入使用字符流更合适，最小单位是按照单个字符读取的
+
+```java
+package com.io;
+
+import java.io.FileReader;
+import java.io.Reader;
+
+public class ReadDemo1 {
+    public static void main(String[] args) throws Exception {
+        //1、创建一个字符输入流管道与文件接通
+        Reader fileReader = new FileReader("src/data2.txt");
+        //2、读取一个字符返回，如果没有可读的字符返回-1
+//        int code = fileReader.read();
+//        System.out.println((char) code);
+
+        //3、使用循环读取字符
+        int code;
+        while((code = fileReader.read()) != -1){
+            System.out.print((char) code);
+        }
+
+
+    }
+}
+
+```
+
+
+
+## 一次读取一个字符数组
+
+```java
+package com.io;
+
+import java.io.FileReader;
+import java.io.Reader;
+
+public class ReadDemo2 {
+    public static void main(String[] args) throws Exception {
+        //1、创建一个字符输入流管道与文件接通
+        Reader fileReader = new FileReader("src/data2.txt");
+        char[] buffer = new char[1024];//1kb
+        int len;
+        while ((len = fileReader.read(buffer))!=-1){
+            String s = new String(buffer, 0, len);
+            System.out.print(s);
+        }
+
+
+    }
+}
+
+```
+
+
+
+## 文件字符输入流
+
+```java
+package com.io;
+
+import java.io.FileWriter;
+import java.io.Writer;
+
+public class WriterDemo {
+    public static void main(String[] args) throws Exception {
+        Writer fileWriter = new FileWriter("src/data1.txt",true);
+        fileWriter.write(99);
+        fileWriter.write('\n');
+        fileWriter.write("小胡");
+        char[] buffer = "我们的".toCharArray();
+        fileWriter.write(buffer);
+
+        fileWriter.write("abc我是中国人",0,3);//abc
+        
+        fileWriter.close();
+    }
+}
+
+```
+
+
+
+
+
+
+
+# IO流（二）
+
+## 缓冲流
+
+### 缓冲流概述
+
+
+
+
+
+
+
+
+
+### 字节缓冲流
+
+
+
+
+
+
+
+
+
+### 字节缓冲流的性能分析
+
+
+
+
+
+
+
+
+
+### 字符缓冲流
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 转换流
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 序列化对象
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 打印流
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## properties
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## IO框架
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
