@@ -54,7 +54,7 @@
       >  /**
       >  * 这个里面可以写文档的注释
       >  * @Description HelloWorld（描述）
-      >  * @Author meng（作者）
+      >  * @Author （作者）
       >  */
       >    public static void main(String[] args) {
       >        System.out.println("HelloWorld!");
@@ -73,11 +73,7 @@ Java中的所有组成部分都需要名字，类名，变量名，方法名都�
 
 1. Java中的关键字不能作为标识符（就是关键字不能作为名字）
 
-   
-
-   <img src="https://gitee.com/xiaohugitee/tuchuang/raw/master/202203020028136.png" style="zoom:50%;" />
-   
-   
+   ![img](https://raw.githubusercontent.com/redyouzi/images-for-blog/main/img02/202208061626156.png)
 
 # 数据类型
 
@@ -160,6 +156,8 @@ if(is && !un){
 ### 自动类型转换
 
 自动类型转换：容量小的数据类型可以自动转换为容量大的数据类型
+
+byte,short,char是直接转换成int类型进行运算的
 
 ### 强制类型转换
 
