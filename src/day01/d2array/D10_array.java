@@ -1,4 +1,4 @@
-package day01;
+package day01.d2array;
 
 /**
  * 两个数组变量指向同一个数组对象

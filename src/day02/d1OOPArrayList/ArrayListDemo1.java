@@ -1,4 +1,4 @@
-package day02;
+package day02.d1OOPArrayList;
 
 import java.util.ArrayList;
 

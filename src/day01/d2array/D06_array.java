@@ -1,4 +1,4 @@
-package day01;
+package day01.d2array;
 
 /**
  * 数组累加求和

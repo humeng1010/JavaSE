@@ -1,4 +1,4 @@
-package day01;
+package day01.d1type;
 
 public class D01_scale {
     public static void main(String[] args) {
@@ -12,6 +12,6 @@ public class D01_scale {
         int i3 = 0x61;// 97
         System.out.println(i3);
 
-        
+
     }
 }

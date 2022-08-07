@@ -1,7 +1,4 @@
-package day02;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+package day02.d1OOPArrayList;
 
 //两个对象内存分析
 public class Test01 {

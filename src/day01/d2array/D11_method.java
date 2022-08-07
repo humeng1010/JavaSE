@@ -1,4 +1,4 @@
-package day01;
+package day01.d2array;
 
 //方法参数传递机制：值传递
 //基本类型的参数传输存储的：数据值

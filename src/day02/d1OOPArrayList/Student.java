@@ -1,4 +1,4 @@
-package day02;
+package day02.d1OOPArrayList;
 
 public class Student {
     String name;

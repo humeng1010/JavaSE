@@ -1,4 +1,4 @@
-package day01;
+package day01.d2array;
 
 import java.util.Random;
 import java.util.Scanner;
