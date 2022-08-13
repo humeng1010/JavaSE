@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE books SYSTEM "data.dtd">
+<books>
+    <book>
+        <bookName>西游记</bookName>
+        <author>吴承恩</author>
+        <price>100</price>
+    </book>
+    <book>
+        <bookName>西游记</bookName>
+        <author>吴承恩</author>
+        <price>100</price>
+    </book>
+    <book>
+        <bookName>西游记</bookName>
+        <author>吴承恩</author>
+        <price>100</price>
+    </book>
+</books>

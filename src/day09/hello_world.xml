@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--注释：根标签有且只有一个-->
+<student>
+    <name>小王</name>
+    <age>20</age>
+    <friend>
+        <name>小李</name>
+        <age>22</age>
+    </friend>
+
+    <sql>
+        select * from tb_user where age &lt; 18;
+        select * from tb_user where age &lt; 18 &amp;&amp; age > 10;
+        <![CDATA[
+        select * from tb_user where age < 10;
+        ]]>
+    </sql>
+</student>
