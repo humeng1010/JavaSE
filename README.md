@@ -5,6 +5,10 @@
 
 https://www.bilibili.com/video/BV1Cv411372m
 
+### 语雀笔记地址(观看更方便)
+
+https://www.yuque.com/redyouzi/javase
+
 ### Java学习路线图
 
 ![image-20220813123635167](https://raw.githubusercontent.com/redyouzi/images-for-blog/main/img02/202208131236219.png)
